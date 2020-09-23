@@ -28,11 +28,11 @@ services:
     ports:
     - target: 3306
       published: 3306
-    command: --init-file /database/Create.sql
+    command: --init-file /docker-entrypoint-initdb.d/Create.sql 
     restart: always
     volumes:
-    - ./Create.sql:/database/Create.sql
+    - ./db:/database/Create.sql
     environment: 
       MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: users
