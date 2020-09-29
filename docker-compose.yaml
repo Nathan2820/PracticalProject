@@ -13,15 +13,9 @@ services:
   flask-app:
     build: ./frontend
     image: python-frontend:latest
-#    ports:
-#    - target: 5000
-#      published: 5000
   backend:
     build: ./backend
     image: python-backend:latest
-#    ports:
-#    - target: 5001
-#      published: 5001
     environment:
     - MYSQL_DATABASE=users
     - MYSQL_ROOT_USER=root
@@ -33,9 +27,6 @@ services:
   mysql:
     build: ./database
     image: mysql
-#   ports:
-#   - target: 3306
-#     published: 3306
 #   command: --init-file /docker-entrypoint-initdb.d/Create.sql 
 #   restart: always
 #   volumes:
