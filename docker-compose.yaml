@@ -27,9 +27,5 @@ services:
   mysql:
     build: ./database
     image: mysql
-#   command: --init-file /docker-entrypoint-initdb.d/Create.sql 
-#   restart: always
-#   volumes:
-#   - ./db:/database/Create.sql
     environment: 
     - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
