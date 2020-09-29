@@ -28,15 +28,17 @@ services:
     - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
     - DATABASE_URI=${DATABASE_URI}
     - SECRET_KEY=${SECRET_KEY}
+    depends_on: 
+    - mysql
   mysql:
     build: ./database
     image: mysql
-#    ports:
-#    - target: 3306
-#      published: 3306
-    command: --init-file /docker-entrypoint-initdb.d/Create.sql 
-    restart: always
-    volumes:
-    - ./db:/database/Create.sql
+#   ports:
+#   - target: 3306
+#     published: 3306
+#   command: --init-file /docker-entrypoint-initdb.d/Create.sql 
+#   restart: always
+#   volumes:
+#   - ./db:/database/Create.sql
     environment: 
     - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
