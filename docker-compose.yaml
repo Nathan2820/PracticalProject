@@ -1,38 +1,42 @@
 version: '3.7'
 services:
-#  nginx:
-#    image: nginx:latest
-#    ports:
-#    - target: 80
-#      published: 80
-#      protocol: tcp
-#    volumes:
-#    - type: bind
-#      source: ./nginx/nginx.conf
-#      target: /etc/nginx/nginx.conf
+  nginx:
+    image: nginx:latest
+    ports:
+    - target: 80
+      published: 80
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
   flask-app:
     build: ./frontend
     image: python-frontend:latest
-    ports:
-    - target: 5000
-      published: 5000
+#    ports:
+#    - target: 5000
+#      published: 5000
   backend:
     build: ./backend
     image: python-backend:latest
-    ports:
-    - target: 5001
-      published: 5001
+#    ports:
+#    - target: 5001
+#      published: 5001
+    environment:
+    - MYSQL_DATABASE=users
+    - MYSQL_ROOT_USER=root
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    - DATABASE_URI=${DATABASE_URI}
+    - SECRET_KEY=${SECRET_KEY}
   mysql:
     build: ./database
-    image: mysql:5.7
-    ports:
-    - target: 3306
-      published: 3306
+    image: mysql
+#    ports:
+#    - target: 3306
+#      published: 3306
     command: --init-file /docker-entrypoint-initdb.d/Create.sql 
     restart: always
     volumes:
     - ./db:/database/Create.sql
     environment: 
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: users
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
