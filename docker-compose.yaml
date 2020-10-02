@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+    - target: 80
+      published: 80
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: ./nginx/nginx.conf
+      target: /etc/nginx/nginx.conf
+  flask-app:
+    build: ./frontend
+    image: python-frontend:latest
+  backend:
+    build: ./backend
+    image: python-backend:latest
+    environment:
+    - MYSQL_DATABASE=users
+    - MYSQL_ROOT_USER=root
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+    - DATABASE_URI=${DATABASE_URI}
+    - SECRET_KEY=${SECRET_KEY}
+    depends_on: 
+    - mysql
+  mysql:
+    build: ./database
+    image: mysql
+    environment: 
+    - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
