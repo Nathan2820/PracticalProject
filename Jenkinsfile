@@ -27,7 +27,7 @@ pipeline{
             }
             stage('Deploy App'){
                 steps{
-                    load "jenkins/.envvars/env-vars.groovy"
+                    load "/home/jenkins/.envvars/env-vars.groovy"
                     sh "docker-compose up -d"
                 }
             }
