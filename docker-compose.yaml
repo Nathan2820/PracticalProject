@@ -20,7 +20,8 @@ services:
     - MYSQL_DATABASE=users
     - MYSQL_ROOT_USER=root
     - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-    - DATABASE_URI=${DATABASE_URI}
+    - DATABASE_URI=${PROD_DATABASE_URI}
+    - DATABASE_URI=$(TEST_DATABASE_URI}  
     - SECRET_KEY=${SECRET_KEY}
     depends_on: 
     - mysql
