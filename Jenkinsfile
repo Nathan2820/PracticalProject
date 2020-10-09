@@ -9,7 +9,7 @@ pipeline{
                 steps{
                     script{
                         if (env.rollback == 'false'){
-                            image = docker.build("nathan2820/flask-app")
+                            image = docker.build("nathan2820/flask-app", "./frontend/Dockerfile")
                         }
                     }
                 }          

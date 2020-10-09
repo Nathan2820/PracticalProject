@@ -11,8 +11,8 @@ services:
       source: ./nginx/nginx.conf
       target: /etc/nginx/nginx.conf
   flask-app:
-    build: .
-    image: nathan2820/flask-app:${app_version}
+    build: ./frontend
+    image: nathan2820/python-frontend:latest
   backend:
     build: ./backend
     image: python-backend:latest
