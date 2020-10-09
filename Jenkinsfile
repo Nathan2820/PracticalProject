@@ -9,7 +9,8 @@ pipeline{
                 steps{
                     script{
                         if (env.rollback == 'false'){
-                            image = docker.build("nathan2820/flask-app", "./frontend")
+                            image1 = docker.build("nathan2820/flask-app", "./frontend")
+                            image2 = docker.build("nathan2820/backend", "./backend")
                         }
                     }
                 }          
@@ -19,7 +20,8 @@ pipeline{
                     script{
                         if (env.rollback == 'false'){
                             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
-                                image.push("${env.app_version}")
+                                image1.push("${env.app_version}")
+				image2.push("${env.app_version}")
                             }
                         }
                     }
