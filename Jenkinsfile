@@ -5,32 +5,23 @@ pipeline{
             rollback = 'false'
         }
         stages{
-            stage('Build Image'){
-                steps{
-                    script{
-                        if (env.rollback == 'false'){
-                            image1 = docker.build("nathan2820/flask-app", "./frontend")
-                            image2 = docker.build("nathan2820/backend", "./backend")
-                        }
-                    }
-                }          
-            }
-            stage('Tag & Push Image'){
-                steps{
-                    script{
-                        if (env.rollback == 'false'){
-                            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials'){
-                                image1.push("${env.app_version}")
-				image2.push("${env.app_version}")
-                            }
-                        }
-                    }
-                }          
-            }
-            stage('Deploy App'){
+            stage('SSH onto Test VM'){
                 steps{
                     load "/home/jenkins/.envvars/env-vars.groovy"
-                    sh "docker-compose up -d"
+                    sh '''
+                    ssh ubuntu@18.134.94.197 << EOF
+                    git clone https://github.com/Nathan2820/PracticalProject
+                    export SCRET_KEY="$SECRET_KEY"
+                    export DB_PASSWORD="$DB_PASSWORD"
+                    export TEST_DATABASE_URI="$DATABASE_URI"
+                    cd PracticalProject
+                    docker-compose up -d
+                    docker-compose ps
+                    docker exec practical-project-pipeline_flask-app_1 pytest --cov application
+                    practical-project-pipeline_backend_1 pytest --cov application
+                    exit
+                    >> EOF
+                    '''
                 }
             }
         }    
