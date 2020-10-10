@@ -9,7 +9,7 @@ pipeline{
                 steps{
                     load "/home/jenkins/.envvars/env-vars.groovy"
                     sh '''
-                    ssh ubuntu@18.134.94.197 << EOF
+                    ssh ubuntu@52.56.37.99 << EOF
                     git clone https://github.com/Nathan2820/PracticalProject
                     export SCRET_KEY="$SECRET_KEY"
                     export DB_PASSWORD="$DB_PASSWORD"
