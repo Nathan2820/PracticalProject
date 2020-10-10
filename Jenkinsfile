@@ -11,7 +11,7 @@ pipeline{
                     sh '''
                     ssh ubuntu@52.56.37.99 << EOF
                     git clone https://github.com/Nathan2820/PracticalProject
-                    export SCRET_KEY="$SECRET_KEY"
+                    export SECRET_KEY="$SECRET_KEY"
                     export DB_PASSWORD="$DB_PASSWORD"
                     export DATABASE_URI="$DATABASE_URI"
                     cd PracticalProject
