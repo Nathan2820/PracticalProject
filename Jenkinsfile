@@ -13,7 +13,7 @@ pipeline{
                     git clone https://github.com/Nathan2820/PracticalProject
                     export SCRET_KEY="$SECRET_KEY"
                     export DB_PASSWORD="$DB_PASSWORD"
-                    export TEST_DATABASE_URI="$DATABASE_URI"
+                    export DATABASE_URI="$DATABASE_URI"
                     cd PracticalProject
                     docker-compose up -d
                     docker-compose ps
