@@ -18,8 +18,8 @@ pipeline{
                     cd PracticalProject
                     docker-compose up -d
                     docker-compose ps
-                    //docker exec practicalproject_flask-app_1 pytest --cov application
-                    //docker exec practicalproject_backend_1 pytest --cov application
+                    #docker exec practicalproject_flask-app_1 pytest --cov application
+                    #docker exec practicalproject_backend_1 pytest --cov application
                     exit
                     >> EOF
                     '''
