@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-frontend
+  labels:
+    service: python-frontend
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  selector:
+    app: python-frontend
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-frontend
+  labels:
+    app: python-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-frontend
+  template:
+    metadata:
+      labels:
+        app: python-frontend
+    spec:
+      containers:
+        - name: python-frontend
+          image: nathan2820/python-frontend:latest
+          ports:
+            - containerPort: 5000
