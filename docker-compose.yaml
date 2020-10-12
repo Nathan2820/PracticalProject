@@ -15,7 +15,7 @@ services:
     image: nathan2820/python-frontend:latest
   backend:
     build: ./backend
-    image: python-backend:latest
+    image: nathan2820/backend:latest
     environment:
     - MYSQL_DATABASE=users
     - MYSQL_ROOT_USER=root
